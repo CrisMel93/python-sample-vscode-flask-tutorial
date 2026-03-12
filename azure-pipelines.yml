@@ -7,38 +7,38 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage:ubuntu-latest
 
 strategy:
   matrix:
     Python310:
-      python.version: '3.10'
+      python.version:'3.10'
     Python311:
-      python.version: '3.11'
+      python.version:'3.11'
     Python312:
-      python.version: '3.12'
+      python.version:'3.12'
 
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
-  task: 'Archive files'
+    versionSpec:'$(python.version)'
+  displayName:'Use Python $(python.version)'
+  task:'Archive files'
   inputs: 
-  rootFolderOrFile: '$(System.DefaultWorkingDirectory'
-  includeRootFolder: false
-  archiveType: zip
+  rootFolderOrFile:'$(System.DefaultWorkingDirectory'
+  includeRootFolder:false
+  archiveType:zip
   archiveFile:
   '$(Build.ArtifactStagingDirectory)/$(Build.Buildld)-$(python.version).zip'
-  replaceExistingArchive: true
-  -task: PublishBuildArtifactts@1
-  displayName: 'Publish artifacts'
+  replaceExistingArchive:true
+  -task:PublishBuildArtifactts@1
+  displayName:'Publish artifacts'
   inputs:
-  PathtoPublish: '$(Build.ArtifactsStagingDirectory)'
-  ArtifactName: 'drop'
-  publishLocation: 'Container'
+  PathtoPublish:'$(Build.ArtifactsStagingDirectory)'
+  ArtifactName:'drop'
+  publishLocation:'Container'
 
-- script: |
+- script:
     pip install pytest pytest-azurepipelines
     pytest
-  displayName: 'Run pytest'
+  displayName:'Run pytest'
